@@ -6,6 +6,7 @@
 
 local composer = require( "composer" )
 local scene = composer.newScene()
+local TH8button
 
 function scene:create( event )
 	local sceneGroup = self.view
@@ -15,9 +16,13 @@ function scene:create( event )
 	-- INSERT code here to initialize the scene
 	-- e.g. add display objects to 'sceneGroup', add touch listeners, etc.
 
+  TH8button = display.newImageRect("TH8.png",display.contentWidth,(display.contentHeight/6))
+  TH8button.x = display.contentCenterX
+  TH8button.y = display.contentCenterY/2
+
 	-- create a white background to fill screen
 	local background = display.newRect( display.contentCenterX, display.contentCenterY, display.contentWidth, display.contentHeight )
-	background:setFillColor( 239,112,15 )	-- white
+	background:setFillColor( 1 )	-- white
 
 	-- create some text
 	local title = display.newText( "Third View", display.contentCenterX, 125, native.systemFont, 32 )
@@ -38,6 +43,7 @@ function scene:create( event )
 	sceneGroup:insert( background )
 	sceneGroup:insert( title )
 	sceneGroup:insert( summary )
+  sceneGroup:insert( TH8button )
 end
 
 function scene:show( event )
@@ -75,6 +81,8 @@ function scene:destroy( event )
 	--
 	-- INSERT code here to cleanup the scene
 	-- e.g. remove display objects, remove touch listeners, save state, etc.
+  TH8button:removeSelf()
+  TH8button = nil
 end
 
 ---------------------------------------------------------------------------------
