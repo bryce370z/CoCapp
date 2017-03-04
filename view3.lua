@@ -7,6 +7,8 @@
 local composer = require( "composer" )
 local scene = composer.newScene()
 local TH8button
+local TH8show = false
+local img
 
 function scene:create( event )
 	local sceneGroup = self.view
@@ -19,6 +21,11 @@ function scene:create( event )
   TH8button = display.newImageRect("TH8.png",display.contentWidth,(display.contentHeight/6)) --creating a button
   TH8button.x = display.contentCenterX
   TH8button.y = display.contentCenterY/2
+
+  img = display.newImageRect("base.png", 200, 200)
+  img.x = display.contentCenterX
+  img.y = display.contentCenterY * 1.3
+  img.isVisible = false
 
 	-- create a white background to fill screen
 	local background = display.newRect( display.contentCenterX, display.contentCenterY, display.contentWidth, display.contentHeight )
@@ -44,6 +51,7 @@ background:setFillColor( 1 )
 	sceneGroup:insert( title )
 	sceneGroup:insert( summary )
   sceneGroup:insert( TH8button )
+  sceneGroup:insert( img )
 end
 
 function scene:show( event )
@@ -66,9 +74,13 @@ local function TH8buttonHandler( event )
   elseif(event.phase == "ended" or event.phase == "cancelled") then
   TH8button.xScale = 1
   TH8button.yScale = 1
+  TH8show = true
 
   end
-  return true
+
+  if TH8show == true then
+    img.isVisible = true
+  end
 end
 TH8button:addEventListener("touch", TH8buttonHandler)
 
