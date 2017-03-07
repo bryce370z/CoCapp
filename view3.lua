@@ -77,7 +77,8 @@ function scene:create( event )
     elseif(event.phase == "moved") then
 
 
-    elseif(event.phase == "ended" or event.phase == "cancelled") then
+  elseif(event.phase == "ended" or event.phase == "cancelled") then
+    if table.getn(picarray) >= 1 then
       arrayindex = arrayindex - 1
       if arrayindex == -1 then
         arrayindex = table.getn(picarray)
@@ -88,19 +89,19 @@ function scene:create( event )
       currentImg.x = display.contentCenterX
       currentImg.y = display.contentCenterY/2
       sceneGroup:insert( currentImg )
-
+    end
 
 
     end
   end
-
   local function swipeRightbtnHandler( event )
     if (event.phase == "began") then
 
     elseif(event.phase == "moved") then
 
 
-    elseif(event.phase == "ended" or event.phase == "cancelled") then
+  elseif(event.phase == "ended" or event.phase == "cancelled") then
+    if table.getn(picarray) >= 1 then
       arrayindex = arrayindex + 1
       if arrayindex == (table.getn(picarray) + 1) then
         arrayindex = 0
@@ -110,6 +111,7 @@ function scene:create( event )
       currentImg.x = display.contentCenterX
       currentImg.y = display.contentCenterY/2
       sceneGroup:insert( currentImg )
+    end
 
     end
   end
