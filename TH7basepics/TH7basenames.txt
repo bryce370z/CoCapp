@@ -1,3 +1,3 @@
-base
-base2
-base3
+TH7basepics/base.png
+TH7basepics/base2.png
+TH7basepics/base3.png
