@@ -68,37 +68,50 @@ function scene:create( event )
   TH10button = display.newImageRect("buttonpics/TH10.png",display.contentWidth,(display.contentHeight/20))
   TH10button.x = display.contentCenterX
   TH10button.y = display.contentCenterY * 1.75
+  
+  
+   local function swipeLeftbtnHandler( event )
+      if (event.phase == "began") then
+
+      elseif(event.phase == "moved") then
+
+
+      elseif(event.phase == "ended" or event.phase == "cancelled") then
+        arrayindex = arrayindex - 1
+        if arrayindex == -1 then
+          arrayindex = table.getn(picarray)
+          print(arrayindex)
+        end
+
+        currentImg = display.newImageRect(picarray[arrayindex], 200, 200)
+        currentImg.x = display.contentCenterX
+        currentImg.y = display.contentCenterY/2
+        sceneGroup:insert( currentImg )
 
 
 
-  -- create a white background to fill screen
-  local background = display.newRect( display.contentCenterX, display.contentCenterY, display.contentWidth, display.contentHeight )
-  background:setFillColor( 1 )
+      end
+    end
+
+    local function swipeRightbtnHandler( event )
+      if (event.phase == "began") then
+
+      elseif(event.phase == "moved") then
 
 
-  -- all objects must be added to group (e.g. self.view)
-  sceneGroup:insert( background )
-  sceneGroup:insert( TH8button )
-  sceneGroup:insert( TH7button )
-  sceneGroup:insert( TH9button )
-  sceneGroup:insert( TH10button )
-  sceneGroup:insert( swipeLeftbtn )
-  sceneGroup:insert( swipeRightbtn )
-  sceneGroup:insert( currentImg )
-end
+      elseif(event.phase == "ended" or event.phase == "cancelled") then
+        arrayindex = arrayindex + 1
+        if arrayindex == (table.getn(picarray) + 1) then
+          arrayindex = 0
+          print(arrayindex)
+        end
+        currentImg = display.newImageRect(picarray[arrayindex], 200, 200)
+        currentImg.x = display.contentCenterX
+        currentImg.y = display.contentCenterY/2
+        sceneGroup:insert( currentImg )
 
-function scene:show( event )
-  local sceneGroup = self.view
-  local phase = event.phase
-
-  if phase == "will" then
--- Called when the scene is still off screen and is about to move on screen
-
-  elseif phase == "did" then
--- Called when the scene is now on screen
---
--- INSERT code here to make the scene come alive
--- e.g. start timers, begin animation, play audio, etc.
+      end
+    end
 
     local function TH7buttonHandler( event )
       if (event.phase == "began") then
@@ -131,53 +144,13 @@ function scene:show( event )
           currentImg.x = display.contentCenterX
           currentImg.y = display.contentCenterY/2
           currentImg.isVisible = true
+          sceneGroup:insert( currentImg )
         end
 
 
       end
     end
 
-
--- need to add handler for picture carousel buttons
-    local function swipeLeftbtnHandler( event )
-      if (event.phase == "began") then
-
-      elseif(event.phase == "moved") then
-
-
-      elseif(event.phase == "ended" or event.phase == "cancelled") then
-        arrayindex = arrayindex - 1
-        if arrayindex == -1 then
-          arrayindex = table.getn(picarray)
-          print(arrayindex)
-        end
-
-        currentImg = display.newImageRect(picarray[arrayindex], 200, 200)
-        currentImg.x = display.contentCenterX
-        currentImg.y = display.contentCenterY/2
-
-
-      end
-    end
-
-    local function swipeRightbtnHandler( event )
-      if (event.phase == "began") then
-
-      elseif(event.phase == "moved") then
-
-
-      elseif(event.phase == "ended" or event.phase == "cancelled") then
-        arrayindex = arrayindex + 1
-        if arrayindex == (table.getn(picarray) + 1) then
-          arrayindex = 0
-          print(arrayindex)
-        end
-        currentImg = display.newImageRect(picarray[arrayindex], 200, 200)
-        currentImg.x = display.contentCenterX
-        currentImg.y = display.contentCenterY/2
-
-      end
-    end
 
     local function TH8buttonHandler( event )
       if (event.phase == "began") then
@@ -190,7 +163,27 @@ function scene:show( event )
       elseif(event.phase == "ended" or event.phase == "cancelled") then
         TH8button.xScale = 1
         TH8button.yScale = 1
+        TH7show = false
         TH8show = true
+        TH9show = false
+        TH10show = false
+
+        if TH8show == true then
+          arrayindex = 0
+          local file = io.open("//Applications//ZeroBraneStudio.app//Contents//ZeroBraneStudio//myprograms//CoCapp//TH8basepics//TH8basenames.txt", "r")
+          local index = 0
+          for line in file:lines() do --loading the pic array with the TH8 pics
+            picarray[index] = line
+            print(picarray[index])
+            index = index + 1
+          end
+          print(picarray[0])
+          currentImg = display.newImageRect(picarray[0], 200, 200)
+          currentImg.x = display.contentCenterX
+          currentImg.y = display.contentCenterY/2
+          currentImg.isVisible = true
+          sceneGroup:insert( currentImg )
+        end
       end
 
     end
@@ -238,6 +231,39 @@ function scene:show( event )
 
 
 
+  -- create a white background to fill screen
+  local background = display.newRect( display.contentCenterX, display.contentCenterY, display.contentWidth, display.contentHeight )
+  background:setFillColor( 1 )
+
+
+  -- all objects must be added to group (e.g. self.view)
+  sceneGroup:insert( background )
+  sceneGroup:insert( TH8button )
+  sceneGroup:insert( TH7button )
+  sceneGroup:insert( TH9button )
+  sceneGroup:insert( TH10button )
+  sceneGroup:insert( swipeLeftbtn )
+  sceneGroup:insert( swipeRightbtn )
+  sceneGroup:insert( currentImg )
+end
+
+function scene:show( event )
+  local sceneGroup = self.view
+  local phase = event.phase
+
+  if phase == "will" then
+-- Called when the scene is still off screen and is about to move on screen
+
+  elseif phase == "did" then
+-- Called when the scene is now on screen
+--
+-- INSERT code here to make the scene come alive
+-- e.g. start timers, begin animation, play audio, etc.
+
+
+-- need to add handler for picture carousel buttons
+
+
   end
 end
 
@@ -262,6 +288,7 @@ function scene:destroy( event )
   --
   -- INSERT code here to cleanup the scene
   -- e.g. remove display objects, remove touch listeners, save state, etc.
+  currentImg.isVisible = false
   TH7button:removeSelf()
   TH7button = nil
   TH8button:removeSelf()
@@ -270,6 +297,8 @@ function scene:destroy( event )
   TH9button = nil
   TH10button:removeSelf()
   TH10button = nil
+  currentImg:removeSelf()
+  currentImg = nil
 end
 
 ---------------------------------------------------------------------------------
