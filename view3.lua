@@ -38,6 +38,7 @@ function scene:create( event )
 
   --need to add picture carousel buttons
 
+
   currentImg = display.newImageRect("icon2.png", 200, 200)
   currentImg.x = display.contentCenterX
   currentImg.y = display.contentCenterY/2
@@ -68,166 +69,166 @@ function scene:create( event )
   TH10button = display.newImageRect("buttonpics/TH10.png",display.contentWidth,(display.contentHeight/20))
   TH10button.x = display.contentCenterX
   TH10button.y = display.contentCenterY * 1.75
-  
-  
-   local function swipeLeftbtnHandler( event )
-      if (event.phase == "began") then
-
-      elseif(event.phase == "moved") then
 
 
-      elseif(event.phase == "ended" or event.phase == "cancelled") then
-        arrayindex = arrayindex - 1
-        if arrayindex == -1 then
-          arrayindex = table.getn(picarray)
-          print(arrayindex)
+  local function swipeLeftbtnHandler( event )
+    if (event.phase == "began") then
+
+    elseif(event.phase == "moved") then
+
+
+    elseif(event.phase == "ended" or event.phase == "cancelled") then
+      arrayindex = arrayindex - 1
+      if arrayindex == -1 then
+        arrayindex = table.getn(picarray)
+        print(arrayindex)
+      end
+
+      currentImg = display.newImageRect(picarray[arrayindex], 200, 200)
+      currentImg.x = display.contentCenterX
+      currentImg.y = display.contentCenterY/2
+      sceneGroup:insert( currentImg )
+
+
+
+    end
+  end
+
+  local function swipeRightbtnHandler( event )
+    if (event.phase == "began") then
+
+    elseif(event.phase == "moved") then
+
+
+    elseif(event.phase == "ended" or event.phase == "cancelled") then
+      arrayindex = arrayindex + 1
+      if arrayindex == (table.getn(picarray) + 1) then
+        arrayindex = 0
+        print(arrayindex)
+      end
+      currentImg = display.newImageRect(picarray[arrayindex], 200, 200)
+      currentImg.x = display.contentCenterX
+      currentImg.y = display.contentCenterY/2
+      sceneGroup:insert( currentImg )
+
+    end
+  end
+
+  local function TH7buttonHandler( event )
+    if (event.phase == "began") then
+      TH7button.xScale = 0.85
+      TH7button.yScale = 0.85
+
+    elseif(event.phase == "moved") then
+      TH7button.xScale = 1
+      TH7button.yScale = 1
+
+    elseif(event.phase == "ended" or event.phase == "cancelled") then
+      TH7button.xScale = 1
+      TH7button.yScale = 1
+      TH7show = true
+      TH8show = false
+      TH9show = false
+      TH10show = false
+
+      if TH7show == true then
+        arrayindex = 0
+        local file = io.open("//Applications//ZeroBraneStudio.app//Contents//ZeroBraneStudio//myprograms//CoCapp//TH7basepics//TH7basenames.txt", "r")
+        local index = 0
+        for line in file:lines() do --loading the pic array with the TH7 pics
+          picarray[index] = line
+          print(picarray[index])
+          index = index + 1
         end
-
-        currentImg = display.newImageRect(picarray[arrayindex], 200, 200)
+        print(picarray[0])
+        currentImg = display.newImageRect(picarray[0], 200, 200)
         currentImg.x = display.contentCenterX
         currentImg.y = display.contentCenterY/2
+        currentImg.isVisible = true
         sceneGroup:insert( currentImg )
-
-
-
       end
+
+
     end
-
-    local function swipeRightbtnHandler( event )
-      if (event.phase == "began") then
-
-      elseif(event.phase == "moved") then
+  end
 
 
-      elseif(event.phase == "ended" or event.phase == "cancelled") then
-        arrayindex = arrayindex + 1
-        if arrayindex == (table.getn(picarray) + 1) then
-          arrayindex = 0
-          print(arrayindex)
+  local function TH8buttonHandler( event )
+    if (event.phase == "began") then
+      TH8button.xScale = 0.85
+      TH8button.yScale = 0.85
+    elseif(event.phase == "moved") then
+      TH8button.xScale = 1
+      TH8button.yScale = 1
+
+    elseif(event.phase == "ended" or event.phase == "cancelled") then
+      TH8button.xScale = 1
+      TH8button.yScale = 1
+      TH7show = false
+      TH8show = true
+      TH9show = false
+      TH10show = false
+
+      if TH8show == true then
+        arrayindex = 0
+        local file = io.open("//Applications//ZeroBraneStudio.app//Contents//ZeroBraneStudio//myprograms//CoCapp//TH8basepics//TH8basenames.txt", "r")
+        local index = 0
+        for line in file:lines() do --loading the pic array with the TH8 pics
+          picarray[index] = line
+          print(picarray[index])
+          index = index + 1
         end
-        currentImg = display.newImageRect(picarray[arrayindex], 200, 200)
+        print(picarray[0])
+        currentImg = display.newImageRect(picarray[0], 200, 200)
         currentImg.x = display.contentCenterX
         currentImg.y = display.contentCenterY/2
+        currentImg.isVisible = true
         sceneGroup:insert( currentImg )
-
       end
     end
 
-    local function TH7buttonHandler( event )
-      if (event.phase == "began") then
-        TH7button.xScale = 0.85
-        TH7button.yScale = 0.85
-
-      elseif(event.phase == "moved") then
-        TH7button.xScale = 1
-        TH7button.yScale = 1
-
-      elseif(event.phase == "ended" or event.phase == "cancelled") then
-        TH7button.xScale = 1
-        TH7button.yScale = 1
-        TH7show = true
-        TH8show = false
-        TH9show = false
-        TH10show = false
-
-        if TH7show == true then
-          arrayindex = 0
-          local file = io.open("//Applications//ZeroBraneStudio.app//Contents//ZeroBraneStudio//myprograms//CoCapp//TH7basepics//TH7basenames.txt", "r")
-          local index = 0
-          for line in file:lines() do --loading the pic array with the TH7 pics
-            picarray[index] = line
-            print(picarray[index])
-            index = index + 1
-          end
-          print(picarray[0])
-          currentImg = display.newImageRect(picarray[0], 200, 200)
-          currentImg.x = display.contentCenterX
-          currentImg.y = display.contentCenterY/2
-          currentImg.isVisible = true
-          sceneGroup:insert( currentImg )
-        end
+  end
 
 
-      end
-    end
+  local function TH9buttonHandler( event )
+    if (event.phase == "began") then
+      TH9button.xScale = 0.85
+      TH9button.yScale = 0.85
 
+    elseif(event.phase == "moved") then
+      TH9button.xScale = 1
+      TH9button.yScale = 1
 
-    local function TH8buttonHandler( event )
-      if (event.phase == "began") then
-        TH8button.xScale = 0.85
-        TH8button.yScale = 0.85
-      elseif(event.phase == "moved") then
-        TH8button.xScale = 1
-        TH8button.yScale = 1
-
-      elseif(event.phase == "ended" or event.phase == "cancelled") then
-        TH8button.xScale = 1
-        TH8button.yScale = 1
-        TH7show = false
-        TH8show = true
-        TH9show = false
-        TH10show = false
-
-        if TH8show == true then
-          arrayindex = 0
-          local file = io.open("//Applications//ZeroBraneStudio.app//Contents//ZeroBraneStudio//myprograms//CoCapp//TH8basepics//TH8basenames.txt", "r")
-          local index = 0
-          for line in file:lines() do --loading the pic array with the TH8 pics
-            picarray[index] = line
-            print(picarray[index])
-            index = index + 1
-          end
-          print(picarray[0])
-          currentImg = display.newImageRect(picarray[0], 200, 200)
-          currentImg.x = display.contentCenterX
-          currentImg.y = display.contentCenterY/2
-          currentImg.isVisible = true
-          sceneGroup:insert( currentImg )
-        end
-      end
+    elseif(event.phase == "ended" or event.phase == "cancelled") then
+      TH9button.xScale = 1
+      TH9button.yScale = 1
 
     end
+  end
 
+  local function TH10buttonHandler( event )
+    if (event.phase == "began") then
+      TH10button.xScale = 0.85
+      TH10button.yScale = 0.85
 
-    local function TH9buttonHandler( event )
-      if (event.phase == "began") then
-        TH9button.xScale = 0.85
-        TH9button.yScale = 0.85
+    elseif(event.phase == "moved") then
+      TH10button.xScale = 1
+      TH10button.yScale = 1
 
-      elseif(event.phase == "moved") then
-        TH9button.xScale = 1
-        TH9button.yScale = 1
+    elseif(event.phase == "ended" or event.phase == "cancelled") then
+      TH10button.xScale = 1
+      TH10button.yScale = 1
 
-      elseif(event.phase == "ended" or event.phase == "cancelled") then
-        TH9button.xScale = 1
-        TH9button.yScale = 1
-
-      end
     end
-
-    local function TH10buttonHandler( event )
-      if (event.phase == "began") then
-        TH10button.xScale = 0.85
-        TH10button.yScale = 0.85
-
-      elseif(event.phase == "moved") then
-        TH10button.xScale = 1
-        TH10button.yScale = 1
-
-      elseif(event.phase == "ended" or event.phase == "cancelled") then
-        TH10button.xScale = 1
-        TH10button.yScale = 1
-
-      end
-    end
+  end
 
 
-    TH8button:addEventListener("touch", TH8buttonHandler)
-    TH7button:addEventListener("touch", TH7buttonHandler)
-    TH9button:addEventListener("touch", TH9buttonHandler)
-    TH10button:addEventListener("touch", TH10buttonHandler)
-    swipeLeftbtn:addEventListener("touch", swipeLeftbtnHandler)
-    swipeRightbtn:addEventListener("touch", swipeRightbtnHandler)
+  TH8button:addEventListener("touch", TH8buttonHandler)
+  TH7button:addEventListener("touch", TH7buttonHandler)
+  TH9button:addEventListener("touch", TH9buttonHandler)
+  TH10button:addEventListener("touch", TH10buttonHandler)
+  swipeLeftbtn:addEventListener("touch", swipeLeftbtnHandler)
+  swipeRightbtn:addEventListener("touch", swipeRightbtnHandler)
 
 
 
@@ -261,8 +262,6 @@ function scene:show( event )
 -- e.g. start timers, begin animation, play audio, etc.
 
 
--- need to add handler for picture carousel buttons
-
 
   end
 end
@@ -288,7 +287,7 @@ function scene:destroy( event )
   --
   -- INSERT code here to cleanup the scene
   -- e.g. remove display objects, remove touch listeners, save state, etc.
-  currentImg.isVisible = false
+  --currentImg.isVisible = false
   TH7button:removeSelf()
   TH7button = nil
   TH8button:removeSelf()

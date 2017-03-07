@@ -11,14 +11,21 @@ display.setStatusBar( display.DefaultStatusBar )
 local widget = require "widget"
 local composer = require "composer"
 
+local function onOrientationChange( event )
+  local currentOrientation = event.type
+  print( "Current orientation: " .. currentOrientation )
+end
+Runtime:addEventListener( "orientation", onOrientationChange )
+
+
 
 -- event listeners for tab buttons:
 local function onFirstView( event )
-	composer.gotoScene( "view1" )
+  composer.gotoScene( "view1" )
 end
 
 local function onSecondView( event )
-	composer.gotoScene( "view2" )
+  composer.gotoScene( "view2" )
 end
 
 local function onThirdView( event )
@@ -30,15 +37,15 @@ end
 
 -- table to setup buttons
 local tabButtons = {
-	{ label="First", defaultFile="icon1.png", overFile="icon1.png", width = 32, height = 32, onPress=onFirstView, selected=true },
-	{ label="Second", defaultFile="icon1.png", overFile="icon1.png", width = 32, height = 32, onPress=onSecondView },
+  { label="First", defaultFile="icon1.png", overFile="icon1.png", width = 32, height = 32, onPress=onFirstView, selected=true },
+  { label="Second", defaultFile="icon1.png", overFile="icon1.png", width = 32, height = 32, onPress=onSecondView },
   {label="Third", defaultFile="icon1.png", overFile="icon1.png", width = 32, height = 32, onPress=onThirdView},
 }
 
 -- create the actual tabBar widget
 local tabBar = widget.newTabBar{
-	top = display.contentHeight - 50,	-- 50 is default height for tabBar widget
-	buttons = tabButtons
+  top = display.contentHeight - 50,	-- 50 is default height for tabBar widget
+  buttons = tabButtons
 }
 
 onFirstView()	-- invoke first tab button's onPress event manually
