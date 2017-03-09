@@ -71,25 +71,40 @@ function scene:create( event )
   TH10button.y = display.contentCenterY * 1.75
 
 
+  local file = io.open("//Applications//ZeroBraneStudio.app//Contents//ZeroBraneStudio//myprograms//CoCapp//TH7basepics//TH7basenames.txt", "r")
+  local index = 0
+  for line in file:lines() do --loading the pic array with the TH7 pics
+    picarray[index] = line
+    print(picarray[index])
+    index = index + 1
+  end
+  print(picarray[0])
+  currentImg = display.newImageRect(picarray[0], 200, 200)
+  currentImg.x = display.contentCenterX
+  currentImg.y = display.contentCenterY/2
+  currentImg.isVisible = true
+  sceneGroup:insert( currentImg )
+
+
   local function swipeLeftbtnHandler( event )
     if (event.phase == "began") then
 
     elseif(event.phase == "moved") then
 
 
-  elseif(event.phase == "ended" or event.phase == "cancelled") then
-    if table.getn(picarray) >= 1 then
-      arrayindex = arrayindex - 1
-      if arrayindex == -1 then
-        arrayindex = table.getn(picarray)
-        print(arrayindex)
-      end
+    elseif(event.phase == "ended" or event.phase == "cancelled") then
+      if table.getn(picarray) >= 1 then
+        arrayindex = arrayindex - 1
+        if arrayindex == -1 then
+          arrayindex = table.getn(picarray)
+          print(arrayindex)
+        end
 
-      currentImg = display.newImageRect(picarray[arrayindex], 200, 200)
-      currentImg.x = display.contentCenterX
-      currentImg.y = display.contentCenterY/2
-      sceneGroup:insert( currentImg )
-    end
+        currentImg = display.newImageRect(picarray[arrayindex], 200, 200)
+        currentImg.x = display.contentCenterX
+        currentImg.y = display.contentCenterY/2
+        sceneGroup:insert( currentImg )
+      end
 
 
     end
@@ -100,18 +115,18 @@ function scene:create( event )
     elseif(event.phase == "moved") then
 
 
-  elseif(event.phase == "ended" or event.phase == "cancelled") then
-    if table.getn(picarray) >= 1 then
-      arrayindex = arrayindex + 1
-      if arrayindex == (table.getn(picarray) + 1) then
-        arrayindex = 0
-        print(arrayindex)
+    elseif(event.phase == "ended" or event.phase == "cancelled") then
+      if table.getn(picarray) >= 1 then
+        arrayindex = arrayindex + 1
+        if arrayindex == (table.getn(picarray) + 1) then
+          arrayindex = 0
+          print(arrayindex)
+        end
+        currentImg = display.newImageRect(picarray[arrayindex], 200, 200)
+        currentImg.x = display.contentCenterX
+        currentImg.y = display.contentCenterY/2
+        sceneGroup:insert( currentImg )
       end
-      currentImg = display.newImageRect(picarray[arrayindex], 200, 200)
-      currentImg.x = display.contentCenterX
-      currentImg.y = display.contentCenterY/2
-      sceneGroup:insert( currentImg )
-    end
 
     end
   end
